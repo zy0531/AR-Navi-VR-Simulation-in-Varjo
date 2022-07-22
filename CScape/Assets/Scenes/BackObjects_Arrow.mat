@@ -31,7 +31,7 @@ Material:
     - _Smoothness: 0
     - _Stencil: 0
     m_Colors:
-    - _Color: {r: 0.9764151, g: 0.9823113, b: 1, a: 1}
+    - _Color: {r: 0.9764151, g: 0.9823113, b: 1, a: 0.9019608}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 0.15566039, g: 0.27486107, b: 1, a: 0.7294118}
+    - _OutlineColor: {r: 0.15566033, g: 0.274861, b: 1, a: 0.74509805}
   m_BuildTextureStacks: []

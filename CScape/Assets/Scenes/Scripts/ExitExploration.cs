@@ -8,7 +8,7 @@ public class ExitExploration : MonoBehaviour
     {
         if (other.CompareTag("MainCamera"))
         {
-            StartCoroutine(Quit.WaitQuit(10));
+            StartCoroutine(Quit.WaitQuit(6));
         }
     }
 }

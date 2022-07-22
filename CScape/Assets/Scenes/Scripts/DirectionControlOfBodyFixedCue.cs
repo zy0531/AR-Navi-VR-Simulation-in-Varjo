@@ -19,5 +19,4 @@ public class DirectionControlOfBodyFixedCue : MonoBehaviour
         transform.Rotate(Vector3.left * 90);
         transform.Rotate(Vector3.forward * 90);
     }
-
 }

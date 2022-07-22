@@ -29,14 +29,15 @@ namespace VarjoExample
                 //xrRig.transform.Translate(VectorYToZero(head.forward) * moveSpeed * Time.deltaTime, Space.World);
                 
                 // Body-based steering (Body rotation is tracked by a Vive Tracker)
-                xrRig.transform.Translate(VectorYToZero(bodyTracker.up) * moveSpeed * Time.deltaTime, Space.World);
+                xrRig.transform.Translate(ProjectToXZPlane(bodyTracker.up) * moveSpeed * Time.deltaTime, Space.World);
             }
 
         }
 
-        Vector3 VectorYToZero(Vector3 v)
+        Vector3 ProjectToXZPlane(Vector3 v)
         {
-            return new Vector3(v.x, 0.0f, v.z);
+            return new Vector3(v.x, 0.0f, v.z).normalized;
+            // for the specific projection to x-z plane, simply setting y to 0 works.
         }
     }
 }

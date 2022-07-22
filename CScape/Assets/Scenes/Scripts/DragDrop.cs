@@ -54,7 +54,18 @@ public class DragDrop : MonoBehaviour
     {
         if (other.CompareTag("Landmark"))
         {
-            //Debug.Log("Drag!!!!!!!!!!!");
+            Debug.Log("Enter!!!!!!!!!!!");
+            IsTriggerEnter = true;
+            if (!projectile) // if we don't have anything holding
+                projectile = other.gameObject;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Landmark"))
+        {
+            Debug.Log("Stay!!!!!!!!!!!");
             IsTriggerEnter = true;
             if (!projectile) // if we don't have anything holding
                 projectile = other.gameObject;
@@ -65,7 +76,7 @@ public class DragDrop : MonoBehaviour
     {
         if (other.CompareTag("Landmark"))
         {
-            //Debug.Log("Drop!!!!!!!!!!!");
+            Debug.Log("Exit!!!!!!!!!!!");
             IsTriggerEnter = false;
             if (projectile) // if we don't have anything holding
                 projectile = null;

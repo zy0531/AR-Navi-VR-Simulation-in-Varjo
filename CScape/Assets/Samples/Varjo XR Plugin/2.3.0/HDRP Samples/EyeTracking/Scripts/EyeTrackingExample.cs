@@ -25,6 +25,9 @@ public class EyeTrackingExample : MonoBehaviour
     public VarjoEyeTracking.GazeOutputFilterType gazeOutputFilterType = VarjoEyeTracking.GazeOutputFilterType.Standard;
     public KeyCode setOutputFilterTypeKey = KeyCode.RightShift;
 
+    [Header("Gaze data output frequency")]
+    public VarjoEyeTracking.GazeOutputFrequency frequency;
+
     [Header("Toggle gaze target visibility")]
     public KeyCode toggleGazeTarget = KeyCode.Return;
 
@@ -91,7 +94,6 @@ public class EyeTrackingExample : MonoBehaviour
     private const string ValidString = "VALID";
     private const string InvalidString = "INVALID";
 
-
     //add
     private string hitGameObjectName;
     private Vector3 hitPoint;
@@ -118,6 +120,7 @@ public class EyeTrackingExample : MonoBehaviour
 
     private void Start()
     {
+        VarjoEyeTracking.SetGazeOutputFrequency(frequency);
         //Hiding the gazetarget if gaze is not available or if the gaze calibration is not done
         if (VarjoEyeTracking.IsGazeAllowed() && VarjoEyeTracking.IsGazeCalibrated())
         {
@@ -185,9 +188,6 @@ public class EyeTrackingExample : MonoBehaviour
 
             if (gazeDataSource == GazeDataSource.InputSubsystem)
             {
-                //add
-                Debug.Log("GazeDataSource:InputSubsystem");
-                //add
 
                 // Get data for eye positions, rotations and the fixation point
                 if (device.TryGetFeatureValue(CommonUsages.eyesData, out eyes))
@@ -226,9 +226,6 @@ public class EyeTrackingExample : MonoBehaviour
 
             } else
             {
-                //add
-                Debug.Log("GazeDataSource:GazeAPI");
-                //add
 
                 gazeData = VarjoEyeTracking.GetGaze();
 
@@ -279,9 +276,7 @@ public class EyeTrackingExample : MonoBehaviour
 
             //add
             hitGameObjectName = hit.collider.gameObject.name;
-            //Debug.Log(hitGameObjectName);
             hitPoint = hit.point;
-            //Debug.Log(hitPoint);
             //add
 
 
@@ -305,9 +300,7 @@ public class EyeTrackingExample : MonoBehaviour
 
             //add
             hitGameObjectName = "None";
-            //Debug.Log(hitGameObjectName);
             hitPoint = new Vector3(0, 0, 0);
-            //Debug.Log(hitPoint);
             //add
         }
 
@@ -331,6 +324,10 @@ public class EyeTrackingExample : MonoBehaviour
             {
                 LogGazeData(data);
             }
+            //for (int i = 0; i < dataCount; i++)
+            //{
+            //    LogGazeData(dataSinceLastUpdate[i], eyeMeasurementsSinceLastUpdate[i]);
+            //}
         }
     }
 
@@ -396,6 +393,7 @@ public class EyeTrackingExample : MonoBehaviour
         logData[16] = rightInvalid ? "" : data.right.forward.ToString("F3");
         logData[17] = rightInvalid ? "" : data.right.origin.ToString("F3");
         logData[18] = rightInvalid ? "" : data.rightPupilSize.ToString();
+        //logData[18] = rightInvalid ? "" : eyeMeasurements.rightPupilDiameterInMM.ToString("F3");
 
         // Focus
         logData[19] = invalid ? "" : data.focusDistance.ToString();
@@ -451,6 +449,10 @@ public class EyeTrackingExample : MonoBehaviour
         string path = logPath + fileName + ".csv";
         writer = new StreamWriter(path);
 
+        //add - Record the task starting time
+        writer.WriteLine(DateTime.Now.ToString()+ '\n');
+        //add
+
         Log(ColumnNames);
         Debug.Log("Log file started at: " + path);
     }
@@ -462,6 +464,9 @@ public class EyeTrackingExample : MonoBehaviour
 
         if (writer != null)
         {
+            //add - Record the task ending time
+            writer.WriteLine(DateTime.Now.ToString() + '\n');
+            //add
             writer.Flush();
             writer.Close();
             writer = null;

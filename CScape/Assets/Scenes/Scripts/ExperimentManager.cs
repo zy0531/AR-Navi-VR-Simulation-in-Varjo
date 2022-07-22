@@ -49,18 +49,11 @@ public class ExperimentManager : MonoBehaviour
     [SerializeField] GameObject WorldARCues_Straight_Route1;
     [SerializeField] GameObject WorldARCues_Straight_Route2;
 
+    [SerializeField] Timer timer;
+
 
     void Awake()
     {
-        //if(Instance != null)
-        //{
-        //    Destroy(gameObject);
-        //    return;
-        //}
-        //Instance = this;
-        //DontDestroyOnLoad(gameObject);
-
-
         Instruction_Route1.SetActive(false);
         Instruction_Route2.SetActive(false);
 
@@ -86,7 +79,7 @@ public class ExperimentManager : MonoBehaviour
         // Active cues on Route1 
         if(routeType == RouteType.Route1)
         {
-            Instruction_Route1.SetActive(true);
+            //Instruction_Route1.SetActive(true);
             if (cueType == CueType.ScreenFixed)
             {
                 ScreenARCues_Direction_Route1.SetActive(true);
@@ -111,7 +104,7 @@ public class ExperimentManager : MonoBehaviour
         // Active cues on Route1 
         else if (routeType == RouteType.Route2)
         {
-            Instruction_Route2.SetActive(true);
+            //Instruction_Route2.SetActive(true);
             if (cueType == CueType.ScreenFixed)
             {
                 ScreenARCues_Direction_Route2.SetActive(true);
@@ -136,13 +129,25 @@ public class ExperimentManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("Press Keycode.L: Start Timer & Show All Target Landmarks.");
+            timer.SetTimerOn();
+            if (routeType == RouteType.Route1)
+            {
+                Instruction_Route1.SetActive(true);
+            }
+            else if (routeType == RouteType.Route2)
+            {
+                Instruction_Route2.SetActive(true);
+            }
+        }
     }
-
+    //call in class - TeleportToStartPosition
     public void ActiveBodyFixedCue(bool hasStarted)
     {
-        if (cueType == CueType.ScreenFixed)
-        {
+        //if (cueType == CueType.ScreenFixed)
+        //{
             if (routeType == RouteType.Route1)
             {
                 BodyFixedCue_Route1.SetActive(true);
@@ -151,6 +156,6 @@ public class ExperimentManager : MonoBehaviour
             {
                 BodyFixedCue_Route2.SetActive(true);
             }
-        }
+        //}
     }
 }

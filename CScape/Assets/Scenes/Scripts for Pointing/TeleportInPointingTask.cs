@@ -19,7 +19,8 @@ public class TeleportInPointingTask : MonoBehaviour
 
     [Tooltip("This field sets the target landmark images that participants are asked to point to")]
     [SerializeField] List<GameObject> LandmarkImages;
-
+    
+    [Tooltip("This field sets a TMP_Text")]
     [SerializeField] TMP_Text m_TextComponent;
 
     public Transform xrRig;                                 // What should we move when teleporting
@@ -123,7 +124,7 @@ public class TeleportInPointingTask : MonoBehaviour
             var values = TaskOrder.Values.ElementAt(Random_IndexList[referencelandmark_index]); // Values: save the landmark to display
             if (displaylandmark_index < values.Count)
             {
-                m_TextComponent.text = "Point to...";
+                m_TextComponent.text = "Point to the landmark below and Press the \"TriggerButton\" to confirm your answer.";
 
                 var displayLandmarkID_inValues = values[displaylandmark_index];
                 displayLandmark_name = LandmarkImages[displayLandmarkID_inValues].name;

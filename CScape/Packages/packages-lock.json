@@ -232,7 +232,7 @@
       "dependencies": {
         "com.unity.xr.management": "3.2.13"
       },
-      "hash": "d6c2f0a5620a562fe063fbb13f91c015a0f6411f"
+      "hash": "f3d9c5ac24aca19504da8391001771fd5c4f29e3"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

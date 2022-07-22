@@ -11,6 +11,9 @@ public class ControllerTriggerFunc : MonoBehaviour
     public TeleportInPointingTask task;
     public ControllerRay controllerRay;
     [SerializeField] DataManager dataManager;
+    [SerializeField] AudioSource ClickAudio;
+    [SerializeField] AudioSource FinishText;
+    [SerializeField] AudioSource FinishSoundEffect;
 
     bool buttonDown;
     Controller controller;
@@ -38,6 +41,16 @@ public class ControllerTriggerFunc : MonoBehaviour
             + "GroundTruthDirection"+ "; "
             + "EstDirection" + "; "
             + "Angle" + '\n');
+        //Record the task starting time
+        RecordData.SaveData(Path, FileName,
+              DateTime.Now.ToString() + ";"
+                        + ";"
+                        + ";"
+                        + ";"
+                        + ";"
+                        + ";"
+                        + ";"
+                        + '\n');
     }
 
     void Update()
@@ -59,11 +72,12 @@ public class ControllerTriggerFunc : MonoBehaviour
         {
             // Button is released
             Debug.Log("tRIGGER");
+            ClickAudio.Play(0);
 
             /// 
             /// Order cannot be changed here 
             /// 
-            if(!task.taskFinish)
+            if (!task.taskFinish)
             {
                 //Log estimated direction for the previous trial
                 if (TriggerNum >= 1 && TriggerNum % 7 != 0)
@@ -112,7 +126,9 @@ public class ControllerTriggerFunc : MonoBehaviour
             
             else
             {
-                StartCoroutine(Quit.WaitQuit(3));
+                FinishText.Play();
+                FinishSoundEffect.Play();
+                StartCoroutine(Quit.WaitQuit(6));
             }
             buttonDown = false;
         }

@@ -22,7 +22,11 @@ public class ViewportCoord : MonoBehaviour
               "Time" + ";"
             + "Landmark_name" + ";"
             + "Landmark_viewPos" + '\n');
-
+        //Record the task starting time
+        RecordData.SaveData(Path, FileName,
+              DateTime.Now.ToString() + ";"
+                        + ";"
+                        + '\n');
     }
 
     // Update is called once per frame

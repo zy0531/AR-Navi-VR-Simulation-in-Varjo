@@ -25,6 +25,8 @@
 			Blend SrcAlpha OneMinusSrcAlpha
 			//ZWrite Off
 			LOD 200
+			Cull Off // for two-sides rendering
+
 
 			Stencil {
 				Ref[_RefNumber]

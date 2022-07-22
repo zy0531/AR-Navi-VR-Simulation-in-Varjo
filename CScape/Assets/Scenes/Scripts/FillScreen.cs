@@ -7,6 +7,8 @@ public class FillScreen : MonoBehaviour
 {
     public float HorizontalRatio = 1.0f;
     public float VerticalRatio = 1.0f;
+
+
     void Start()
     {
         StartCoroutine(SetARLensSimulator());
@@ -16,19 +18,38 @@ public class FillScreen : MonoBehaviour
     { 
         yield return new WaitForSeconds(1);
 
-        float distance = (Camera.main.nearClipPlane + 0.1f);
+        float distance = (Camera.main.nearClipPlane + 0.2f);
 
         transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
 
+
+        /// Set the aspect ratio by the sensor size properties of the physical camera ("film gate")
+        Camera.main.aspect = 36f / 24f;
+        //https://docs.unity3d.com/Manual/PhysicalCameras.html
+
+
+        /// manipulate the FOV by VertocalRatio and HorizontalRatio
+        float fieldOfView_Height = Camera.main.fieldOfView * VerticalRatio;
+        float fieldOfView_Width = Camera.VerticalToHorizontalFieldOfView(Camera.main.fieldOfView, Camera.main.aspect) * HorizontalRatio;
+        /// Same results as using the function above
+        //float hFOVrad = Mathf.Atan(Mathf.Tan(Camera.main.fieldOfView * Mathf.Deg2Rad * 0.5f) * Camera.main.aspect) * 2f;
+        //float fieldOfView_Width = hFOVrad * Mathf.Rad2Deg * HorizontalRatio;
+        
+        float height = 2.0f * distance * Mathf.Tan(fieldOfView_Height * 0.5f * Mathf.Deg2Rad);
+        float width = 2.0f * distance * Mathf.Tan(fieldOfView_Width * 0.5f * Mathf.Deg2Rad);
         //https://docs.unity3d.com/Manual/FrustumSizeAtDistance.html
-        float height = 2.0f * distance * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        float width = height * Camera.main.aspect;
+        //https://forum.unity.com/threads/how-to-calculate-horizontal-field-of-view.16114/
 
-        transform.localScale = new Vector3(width * 0.1f * HorizontalRatio, 1f, height * 0.1f * VerticalRatio); //use plane object -- scale 1: 10m
 
-        float fieldOfView_Height = 2.0f * Mathf.Atan(height * VerticalRatio * 0.5f / distance) * Mathf.Rad2Deg; //*0.5f - simulate limited FOV
-        float fieldOfView_Width = 2.0f * Mathf.Atan(width * HorizontalRatio * 0.5f / distance) * Mathf.Rad2Deg;
-        Debug.Log(fieldOfView_Height.ToString() + "  " + fieldOfView_Width.ToString());
+        transform.localScale = new Vector3(width * 0.1f, 1f, height * 0.1f); //use plane object -- scale 1: 10m 
+
+        Debug.Log("fieldOfView_Height" + fieldOfView_Height.ToString() 
+            + " fieldOfView_Width " + fieldOfView_Width.ToString() 
+            + " Camera.main.aspect " + Camera.main.aspect
+            + " Camera.main.fieldOfView" + Camera.main.fieldOfView
+            + " Camera.main.nearClipPlane" + Camera.main.nearClipPlane
+            + " height " + height.ToString()
+            + " width " + width.ToString());
 
     }
         

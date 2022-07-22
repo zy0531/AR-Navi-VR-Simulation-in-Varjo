@@ -8,7 +8,10 @@ public class ControllerRay : MonoBehaviour
 {
     public Transform teleportPointer;           // Teleport pointer
     public LayerMask ControllerRayLayerMask;        // Collision layers
+
+    [Tooltip("This field sets a LineRenderer")]
     [SerializeField] LineRenderer rend;  // teleportPointer LineRenderer
+
     public Vector3 EstimatedDirection { get; set; }
 
     Controller controller;
