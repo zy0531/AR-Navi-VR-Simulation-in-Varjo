@@ -5,3 +5,17 @@ This is the program of the experiment in paper **Y. Zhao, J. Stefanucci, S. Cree
 
 ## Demo Video
 https://www.youtube.com/watch?v=lrn_5SzA30U
+
+## Hardware
+- Varjo - XR3
+- Base station x 2
+- HTC Vive controller x 1
+- HTC Vive tracker x1 (with a belt to tie the tracker in front of the belly of users)
+
+## Software
+- Varjo Base: version 3.2.0
+- Unity 2020.3.20f1
+
+## Scenes
+- CScape/Assets/Scenes/Scene for Experiments
+
